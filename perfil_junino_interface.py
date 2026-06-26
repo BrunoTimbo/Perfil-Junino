@@ -1,5 +1,13 @@
 import tkinter as tk
 from tkinter import messagebox
+import pygame
+
+pygame.mixer.init()
+pygame.mixer.music.load("efeitosonoro.mp3")
+pygame.mixer.music.set_volume(0.5)
+pygame.mixer.music.play(-1)
+
+
 
 def iniciar_quiz():
     # Esconde a tela inicial e mostra a tela de perguntas
@@ -91,29 +99,30 @@ personagens = {
 janela = tk.Tk()
 janela.title("Arraiá dos Perfis Caipiras")
 janela.geometry("450x400")
-janela.configure(bg="#FFF8EA") # Cor de fundo creme/junina
+janela.resizable(False, False)
+janela.configure(bg="#00FF95") # Cor de fundo creme/junina
 
 # --- TELA INICIAL ---
-frame_inicial = tk.Frame(janela, bg="#FFF8EA")
+frame_inicial = tk.Frame(janela, bg="#1B5E1B")
 frame_inicial.pack(pady=40)
 
-lbl_titulo = tk.Label(frame_inicial, text="🎉🔥 ARRAIÁ DIGITAL 🔥🎉", font=("Arial", 18, "bold"), bg="#FFF8EA", fg="#E65C00")
+lbl_titulo = tk.Label(frame_inicial, text="🎉🔥 ARRAIÁ DIGITAL 🔥🎉", font=("Comic Sans MS", 18, "bold"), bg="#FFF8EA", fg="#E65C00")
 lbl_titulo.pack(pady=10)
 
-lbl_subtitulo = tk.Label(frame_inicial, text="Descubra qual personagem junino você seria!", font=("Arial", 11), bg="#FFF8EA", fg="#555")
+lbl_subtitulo = tk.Label(frame_inicial, text="Descubra qual personagem junino você seria!", font=("Comic Sans MS", 11), bg="#FFF8EA", fg="#555")
 lbl_subtitulo.pack(pady=10)
 
-btn_iniciar = tk.Button(frame_inicial, text="Começar Quiz! 🤠", font=("Arial", 12, "bold"), bg="#FF9F1C", fg="white", padx=20, pady=10, command=iniciar_quiz, relief="flat")
+btn_iniciar = tk.Button(frame_inicial, text="Começar Quiz! 🤠", font=("Comic Sans MS", 24, "bold"), bg="#FF9F1C", fg="white", padx=20, pady=10, command=iniciar_quiz, relief="flat")
 btn_iniciar.pack(pady=30)
 
 # --- TELA DE PERGUNTAS ---
 frame_pergunta = tk.Frame(janela, bg="#FFF8EA")
 
-lbl_pergunta = tk.Label(frame_pergunta, text="", font=("Arial", 13, "bold"), bg="#FFF8EA", fg="#333", wraplength=400, justify="center")
+lbl_pergunta = tk.Label(frame_pergunta, text="", font=("Comic Sans MS", 13, "bold"), bg="#FFF8EA", fg="#333", wraplength=400, justify="center")
 lbl_pergunta.pack(pady=20)
 
 # Estilo padrão dos botões de opções
-estilo_botoes = {"font": ("Arial", 11), "bg": "#FFF", "fg": "#333", "activebackground": "#FFEAA7", "width": 30, "pady": 8, "relief": "groove"}
+estilo_botoes = {"font": ("Comic Sans MS", 11), "bg": "#FFF", "fg": "#333", "activebackground": "#FFEAA7", "width": 30, "pady": 8, "relief": "groove"}
 
 btn_op1 = tk.Button(frame_pergunta, **estilo_botoes)
 btn_op1.pack(pady=5)
@@ -127,13 +136,13 @@ btn_op3.pack(pady=5)
 # --- TELA DE RESULTADO ---
 frame_resultado = tk.Frame(janela, bg="#FFF8EA")
 
-lbl_resultado_titulo = tk.Label(frame_resultado, text="", font=("Arial", 14, "bold"), bg="#FFF8EA", fg="#E65C00")
+lbl_resultado_titulo = tk.Label(frame_resultado, text="", font=("Comic Sans MS", 14, "bold"), bg="#FFF8EA", fg="#E65C00")
 lbl_resultado_titulo.pack(pady=10)
 
-lbl_resultado_texto = tk.Label(frame_resultado, text="", font=("Arial", 12), bg="#FFF8EA", fg="#333", wraplength=350, justify="center")
+lbl_resultado_texto = tk.Label(frame_resultado, text="", font=("Comic Sans MS", 12), bg="#FFF8EA", fg="#333", wraplength=350, justify="center")
 lbl_resultado_texto.pack(pady=20)
 
-btn_reiniciar = tk.Button(frame_resultado, text="Jogar Novamente 🔄", font=("Arial", 10, "bold"), bg="#2EC4B6", fg="white", padx=10, pady=5, command=reiniciar_quiz, relief="flat")
+btn_reiniciar = tk.Button(frame_resultado, text="Jogar Novamente 🔄", font=("Comic Sans MS", 10, "bold"), bg="#2EC4B6", fg="white", padx=10, pady=5, command=reiniciar_quiz, relief="flat")
 btn_reiniciar.pack(pady=10)
 
 # Inicia o app gráfico
