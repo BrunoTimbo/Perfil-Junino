@@ -82,7 +82,7 @@ perguntas = [
 ]
 
 personagens = [
-    "👒 ZÉ DA ROÇA – o caipira raiz que ama tudo da festa!",
+    "👒 ZÉ DA ROÇA – o caipira raiz que ama tudo da festa!", 
     "🔥 MARIA FOGUEIRA – animada, não sai da quadrilha!",
     "🌽 TONHO MILHO – só pensa em comida junina!",
     "💃 DONA QUADRILHA – nasceu pra dançar forró!"
@@ -106,7 +106,7 @@ janela.configure(bg="#00FF95") # Cor de fundo creme/junina
 frame_inicial = tk.Frame(janela, bg="#1B5E1B")
 frame_inicial.pack(pady=40)
 
-lbl_titulo = tk.Label(frame_inicial, text="🎉🔥 ARRAIÁ DIGITAL 🔥🎉", font=("Comic Sans MS", 18, "bold"), bg="#FFF8EA", fg="#E65C00")
+lbl_titulo = tk.Label(frame_inicial, text="🎉🔥 ARRAIÁ DIGITAL 🔥🎉", font=("Jokerman", 18, "boldgit"), bg="#FFF8EA", fg="#E65C00")
 lbl_titulo.pack(pady=10)
 
 lbl_subtitulo = tk.Label(frame_inicial, text="Descubra qual personagem junino você seria!", font=("Comic Sans MS", 11), bg="#FFF8EA", fg="#555")
