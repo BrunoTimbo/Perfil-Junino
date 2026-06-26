@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎉 Arraiá dos Perfis Caipiras</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    min-height: 100vh;
+    background: #1a0a00;
+    font-family: 'Nunito', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    overflow-x: hidden;
+  }
+
+  /* Bandeirinhas animadas no topo */
+  .bandeirinhas {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 48px;
+    display: flex;
+    align-items: flex-end;
+    gap: 0;
+    z-index: 10;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .bandeirinha {
+    width: 32px;
+    height: 36px;
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    flex-shrink: 0;
+    animation: swing 2s ease-in-out infinite alternate;
+  }
+  .bandeirinha:nth-child(odd) { animation-delay: -1s; }
+  .b1 { background: #e8c234; }
+  .b2 { background: #e84c1e; }
+  .b3 { background: #2e7d32; }
+  .b4 { background: #c62828; }
+  .b5 { background: #f57f17; }
+  .b6 { background: #1565c0; }
+  @keyframes swing {
+    from { transform: rotate(-8deg); }
+    to   { transform: rotate(8deg); }
+  }
+
+  .card {
+    background: linear-gradient(160deg, #fff8e7 0%, #fde9c0 100%);
+    border-radius: 24px;
+    max-width: 560px;
+    width: 100%;
+    padding: 40px 36px 36px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.5), 0 0 0 4px #e8c234, 0 0 0 8px #c0392b;
+    position: relative;
+    margin-top: 48px;
+  }
+
+  /* Estrelinhas decorativas */
+  .card::before {
+    content: "✦ ✦ ✦";
+    position: absolute;
+    top: 14px; left: 50%;
+    transform: translateX(-50%);
+    color: #e8c234;
+    font-size: 13px;
+    letter-spacing: 8px;
+  }
+
+  h1 {
+    font-family: 'Fredoka One', cursive;
+    font-size: clamp(1.7rem, 5vw, 2.4rem);
+    color: #c0392b;
+    text-align: center;
+    line-height: 1.1;
+    margin-bottom: 6px;
+    text-shadow: 2px 2px 0 #e8c234;
+  }
+  .subtitle {
+    text-align: center;
+    color: #7b4f1a;
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 28px;
+  }
+
+  /* Barra de progresso */
+  .progress-wrap {
+    margin-bottom: 24px;
+  }
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: #7b4f1a;
+    font-weight: 700;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .progress-bar {
+    height: 10px;
+    background: #e8c234aa;
+    border-radius: 99px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #e84c1e, #e8c234);
+    border-radius: 99px;
+    transition: width 0.5s cubic-bezier(.4,0,.2,1);
+  }
+
+  /* Pergunta */
+  .question-box {
+    background: #fff3d6;
+    border: 2px dashed #e8c234;
+    border-radius: 16px;
+    padding: 18px 20px;
+    margin-bottom: 20px;
+  }
+  .question-num {
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: #c0392b;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+  .question-text {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #3e1f00;
+    line-height: 1.3;
+  }
+
+  /* Opções */
+  .options { display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px; }
+
+  .option-btn {
+    background: #fff;
+    border: 2.5px solid #e8c234;
+    border-radius: 14px;
+    padding: 14px 18px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #3e1f00;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.18s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+    overflow: hidden;
+  }
+  .option-btn:hover {
+    background: #fff3d6;
+    border-color: #c0392b;
+    transform: translateX(4px);
+    box-shadow: 4px 4px 0 #e8c234;
+  }
+  .option-btn.selected {
+    background: #c0392b;
+    border-color: #c0392b;
+    color: #fff;
+    transform: translateX(4px);
+    box-shadow: 4px 4px 0 #7b0000;
+  }
+  .option-num {
+    background: #e8c234;
+    color: #3e1f00;
+    font-size: 0.8rem;
+    font-weight: 900;
+    border-radius: 50%;
+    width: 26px; height: 26px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .option-btn.selected .option-num {
+    background: #fff;
+    color: #c0392b;
+  }
+
+  /* Botão próximo */
+  .btn-next {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, #c0392b, #e84c1e);
+    color: #fff;
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.3rem;
+    letter-spacing: 1px;
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #7b0000;
+    transition: all 0.15s;
+    opacity: 0.4;
+    pointer-events: none;
+  }
+  .btn-next.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+  .btn-next.active:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 #7b0000;
+  }
+  .btn-next.active:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #7b0000;
+  }
+
+  /* Tela de resultado */
+  #result-screen { display: none; text-align: center; }
+  .result-emoji { font-size: 5rem; margin-bottom: 10px; animation: bounce 0.8s ease infinite alternate; }
+  @keyframes bounce {
+    from { transform: translateY(0); }
+    to   { transform: translateY(-12px); }
+  }
+  .result-title {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.5rem;
+    color: #c0392b;
+    margin-bottom: 4px;
+    text-shadow: 1px 1px 0 #e8c234;
+  }
+  .result-name {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2.2rem;
+    color: #3e1f00;
+    margin-bottom: 10px;
+  }
+  .result-desc {
+    font-size: 1rem;
+    color: #7b4f1a;
+    font-weight: 600;
+    background: #fff3d6;
+    border: 2px dashed #e8c234;
+    border-radius: 14px;
+    padding: 14px 18px;
+    margin-bottom: 10px;
+  }
+  .result-pontos {
+    font-size: 0.88rem;
+    color: #c0392b;
+    font-weight: 800;
+    margin-bottom: 24px;
+  }
+  .btn-restart {
+    background: linear-gradient(135deg, #2e7d32, #43a047);
+    color: #fff;
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 14px;
+    padding: 14px 32px;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #1b5e20;
+    transition: all 0.15s;
+  }
+  .btn-restart:hover { transform: translateY(-2px); box-shadow: 0 6px 0 #1b5e20; }
+  .btn-restart:active { transform: translateY(2px); box-shadow: 0 2px 0 #1b5e20; }
+
+  /* Tela inicial */
+  #start-screen { text-align: center; }
+  .start-art { font-size: 3.5rem; margin-bottom: 10px; }
+  .btn-start {
+    background: linear-gradient(135deg, #e8c234, #f57f17);
+    color: #3e1f00;
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.4rem;
+    border: none;
+    border-radius: 14px;
+    padding: 16px 40px;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #a06000;
+    transition: all 0.15s;
+    margin-top: 12px;
+  }
+  .btn-start:hover { transform: translateY(-2px); box-shadow: 0 6px 0 #a06000; }
+  .btn-start:active { transform: translateY(2px); box-shadow: 0 2px 0 #a06000; }
+
+  /* Partículas de fogueira */
+  .spark {
+    position: fixed;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #e8c234;
+    pointer-events: none;
+    animation: floatUp 2.5s ease-in forwards;
+  }
+  @keyframes floatUp {
+    0%   { opacity: 1; transform: translateY(0) scale(1); }
+    100% { opacity: 0; transform: translateY(-120px) scale(0.2); }
+  }
+</style>
+</head>
+<body>
+
+<!-- Bandeirinhas -->
+<div class="bandeirinhas" id="bandeirinhas"></div>
+
+<div class="card">
+
+  <!-- Tela inicial -->
+  <div id="start-screen">
+    <div class="start-art">🌽🤠🪗</div>
+    <h1>Arraiá dos Perfis Caipiras</h1>
+    <p class="subtitle">Responda e descubra qual personagem junino você seria!</p>
+    <div class="result-desc" style="margin-top:16px; margin-bottom:4px;">
+      São <strong>4 perguntas</strong> curtinhas sobre sua festa junina perfeita.<br>
+      No final, revelamos o seu personagem! 🌽💃🔥👒
+    </div>
+    <button class="btn-start" onclick="startQuiz()">Entrar no Arraiá!</button>
+  </div>
+
+  <!-- Tela do quiz -->
+  <div id="quiz-screen" style="display:none;">
+    <div class="progress-wrap">
+      <div class="progress-label">
+        <span id="prog-text">Pergunta 1 de 4</span>
+        <span id="prog-pct">0%</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" id="prog-fill" style="width:0%"></div></div>
+    </div>
+
+    <div class="question-box">
+      <div class="question-num" id="q-num">PERGUNTA 1</div>
+      <div class="question-text" id="q-text"></div>
+    </div>
+
+    <div class="options" id="options-list"></div>
+
+    <button class="btn-next" id="btn-next" onclick="nextQuestion()">Próxima ➡️</button>
+  </div>
+
+  <!-- Tela de resultado -->
+  <div id="result-screen">
+    <div class="result-emoji" id="res-emoji"></div>
+    <div class="result-title">Você é...</div>
+    <div class="result-name" id="res-name"></div>
+    <div class="result-desc" id="res-desc"></div>
+    <div class="result-pontos" id="res-pontos"></div>
+    <button class="btn-restart" onclick="restartQuiz()">🎊 Jogar de novo!</button>
+  </div>
+
+</div>
+
+<script>
+const perguntas = [
+  {
+    q: "Qual comida junina você não vive sem?",
+    opcoes: ["🌽 Milho cozido", "🍲 Canjica", "🫔 Pamonha"],
+    resposta: 0
+  },
+  {
+    q: "O que você mais gosta na festa?",
+    opcoes: ["💃 Quadrilha", "🔥 Fogueira", "😋 Comida"],
+    resposta: 1
+  },
+  {
+    q: "Qual look combina mais com você?",
+    opcoes: ["👕 Xadrez completo", "🎩 Chapéu de palha", "👗 Vestido caipira"],
+    resposta: 0
+  },
+  {
+    q: "Qual música você mais curte?",
+    opcoes: ["🪗 Forró animado", "💕 Xote romântico", "🎶 Piseiro junino"],
+    resposta: 0
+  }
+];
+
+const personagens = [
+  { emoji: "👒", nome: "Zé da Roça", desc: "O caipira raiz! Você ama tudo da festa, da comida à dança, e tem o forró no sangue.", min: 4 },
+  { emoji: "🔥", nome: "Maria Fogueira", desc: "Animada e contagiante! Você não sai da quadrilha e ilumina qualquer arraiá.", min: 3 },
+  { emoji: "🌽", nome: "Tonho Milho", desc: "Seu coração é do tamanho de um milharal! Você só para de comer quando a festa acaba.", min: 2 },
+  { emoji: "💃", nome: "Dona Quadrilha", desc: "Você nasceu pra dançar forró! Seus passos são a alma do arraiá.", min: 0 }
+];
+
+let atual = 0;
+let pontos = 0;
+let escolhido = null;
+
+// Gera bandeirinhas
+function makeBandeiras() {
+  const wrap = document.getElementById('bandeirinhas');
+  const classes = ['b1','b2','b3','b4','b5','b6'];
+  const n = Math.ceil(window.innerWidth / 32) + 2;
+  for (let i = 0; i < n; i++) {
+    const d = document.createElement('div');
+    d.className = 'bandeirinha ' + classes[i % classes.length];
+    d.style.animationDelay = (Math.random() * -2) + 's';
+    wrap.appendChild(d);
+  }
+}
+makeBandeiras();
+
+function startQuiz() {
+  document.getElementById('start-screen').style.display = 'none';
+  document.getElementById('quiz-screen').style.display = 'block';
+  renderPergunta();
+}
+
+function renderPergunta() {
+  escolhido = null;
+  const p = perguntas[atual];
+  const pct = Math.round((atual / perguntas.length) * 100);
+
+  document.getElementById('q-num').textContent = `PERGUNTA ${atual + 1}`;
+  document.getElementById('q-text').textContent = p.q;
+  document.getElementById('prog-text').textContent = `Pergunta ${atual + 1} de ${perguntas.length}`;
+  document.getElementById('prog-pct').textContent = pct + '%';
+  document.getElementById('prog-fill').style.width = pct + '%';
+
+  const list = document.getElementById('options-list');
+  list.innerHTML = '';
+  p.opcoes.forEach((op, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    btn.innerHTML = `<span class="option-num">${i + 1}</span> ${op}`;
+    btn.onclick = () => selectOption(i, btn);
+    list.appendChild(btn);
+  });
+
+  const next = document.getElementById('btn-next');
+  next.classList.remove('active');
+  next.textContent = atual < perguntas.length - 1 ? 'Próxima ➡️' : 'Ver resultado 🎯';
+}
+
+function selectOption(i, btn) {
+  document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  escolhido = i;
+  document.getElementById('btn-next').classList.add('active');
+  spawnSparks(btn);
+}
+
+function nextQuestion() {
+  if (escolhido === null) return;
+  if (escolhido === perguntas[atual].resposta) pontos++;
+  atual++;
+  if (atual < perguntas.length) {
+    renderPergunta();
+  } else {
+    showResult();
+  }
+}
+
+function showResult() {
+  document.getElementById('quiz-screen').style.display = 'none';
+  const rs = document.getElementById('result-screen');
+  rs.style.display = 'block';
+
+  const p = personagens.find(x => pontos >= x.min) || personagens[3];
+  document.getElementById('res-emoji').textContent = p.emoji;
+  document.getElementById('res-name').textContent = p.nome;
+  document.getElementById('res-desc').textContent = p.desc;
+  document.getElementById('res-pontos').textContent =
+    `🎯 Você acertou ${pontos} de ${perguntas.length} respostas!`;
+
+  // Dispara confete de faíscas
+  for (let i = 0; i < 20; i++) {
+    setTimeout(() => spawnRandomSpark(), i * 80);
+  }
+}
+
+function restartQuiz() {
+  atual = 0; pontos = 0; escolhido = null;
+  document.getElementById('result-screen').style.display = 'none';
+  document.getElementById('start-screen').style.display = 'block';
+}
+
+function spawnSparks(btn) {
+  const rect = btn.getBoundingClientRect();
+  for (let i = 0; i < 6; i++) {
+    const spark = document.createElement('div');
+    spark.className = 'spark';
+    spark.style.left = (rect.left + Math.random() * rect.width) + 'px';
+    spark.style.top = (rect.top + window.scrollY + Math.random() * 20) + 'px';
+    spark.style.background = ['#e8c234','#e84c1e','#fff'][Math.floor(Math.random()*3)];
+    document.body.appendChild(spark);
+    setTimeout(() => spark.remove(), 2500);
+  }
+}
+
+function spawnRandomSpark() {
+  const spark = document.createElement('div');
+  spark.className = 'spark';
+  spark.style.left = (Math.random() * window.innerWidth) + 'px';
+  spark.style.top = (window.innerHeight * 0.5 + Math.random() * 200) + 'px';
+  spark.style.width = spark.style.height = (6 + Math.random()*6) + 'px';
+  spark.style.background = ['#e8c234','#e84c1e','#fff','#f57f17'][Math.floor(Math.random()*4)];
+  document.body.appendChild(spark);
+  setTimeout(() => spark.remove(), 2500);
+}
+</script>
+</body>
+</html>
