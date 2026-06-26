@@ -20,7 +20,7 @@ def perfil_junino_caipira():
         {
             "q": "Qual look combina mais com você?",
             "opcoes": ["1 - Xadrez completo 👕", "2 - Chapéu de palha 🎩", "3 - Vestido caipira 👗"],
-            "resposta": 1
+            "resposta": 3
         },
         {
             "q": "Qual música você mais curte?",
